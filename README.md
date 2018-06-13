@@ -1,4 +1,4 @@
->##Requirements:
+##Requirements:
 
 - Visual Studio 2017
 - Office Developer Tools for Visual Studio 2017
