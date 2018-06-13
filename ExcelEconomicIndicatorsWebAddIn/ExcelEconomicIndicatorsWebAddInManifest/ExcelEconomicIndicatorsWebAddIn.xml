@@ -1,0 +1,293 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--Created:ce44715c-8c4e-446b-879c-ea9ebe0f09c8-->
+<OfficeApp
+          xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
+          xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
+          xsi:type="TaskPaneApp">
+
+  <!-- Begin Basic Settings: Add-in metadata, used for all versions of Office unless override provided. -->
+
+  <!-- IMPORTANT! Id must be unique for your add-in, if you reuse this manifest ensure that you change this id to a new GUID. -->
+  <Id>5a77d062-babb-44db-aed2-004bf851700c</Id>
+
+  <!--Version. Updates from the store only get triggered if there is a version change. -->
+  <Version>1.0.0.0</Version>
+  <ProviderName>[Provider name]</ProviderName>
+  <DefaultLocale>en-US</DefaultLocale>
+  <!-- The display name of your add-in. Used on the store and various places of the Office UI such as the add-ins dialog. -->
+  <DisplayName DefaultValue="ExcelEconomicIndicatorsWebAddIn" />
+  <Description DefaultValue="ExcelEconomicIndicatorsWebAddIn"/>
+  <!-- Icon for your add-in. Used on installation screens and the add-ins dialog. -->
+  <IconUrl DefaultValue="~remoteAppUrl/Images/Button32x32.png" />
+
+  <SupportUrl DefaultValue="http://www.contoso.com" />
+  <!-- Domains that will be allowed when navigating. For example, if you use ShowTaskpane and then have an href link, navigation will only be allowed if the domain is on this list. -->
+  <AppDomains>
+    <AppDomain>AppDomain1</AppDomain>
+    <AppDomain>AppDomain2</AppDomain>
+    <AppDomain>AppDomain3</AppDomain>
+  </AppDomains>
+  <!--End Basic Settings. -->
+
+  <!--Begin TaskPane Mode integration. This section is used if there are no VersionOverrides or if the Office client version does not support add-in commands. -->
+  <Hosts>
+    <Host Name="Workbook" />
+  </Hosts>
+  <DefaultSettings>
+    <SourceLocation DefaultValue="~remoteAppUrl/Home.html" />
+  </DefaultSettings>
+  <!-- End TaskPane Mode integration.  -->
+
+  <Permissions>ReadWriteDocument</Permissions>
+
+  <!-- Begin Add-in Commands Mode integration. -->
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
+
+    <!-- The Hosts node is required. -->
+    <Hosts>
+      <!-- Each host can have a different set of commands. -->
+      <!-- Excel host is Workbook, Word host is Document, and PowerPoint host is Presentation. -->
+      <!-- Make sure the hosts you override match the hosts declared in the top section of the manifest. -->
+      <Host xsi:type="Workbook">
+        <!-- Form factor. Currently only DesktopFormFactor is supported. -->
+        <DesktopFormFactor>
+          <!--"This code enables a customizable message to be displayed when the add-in is loaded successfully upon individual install."-->
+          <GetStarted>
+            <!-- Title of the Getting Started callout. The resid attribute points to a ShortString resource -->
+            <Title resid="EconInd.GetStarted.Title"/>
+
+            <!-- Description of the Getting Started callout. resid points to a LongString resource -->
+            <Description resid="EconInd.GetStarted.Description"/>
+
+            <!-- Points to a URL resource which details how the add-in should be used. -->
+            <LearnMoreUrl resid="EconInd.GetStarted.LearnMoreUrl"/>
+          </GetStarted>
+          <!-- Function file is a HTML page that includes the JavaScript where functions for ExecuteAction will be called. 
+            Think of the FunctionFile as the code behind ExecuteFunction. -->
+          <FunctionFile resid="Contoso.DesktopFunctionFile.Url" />
+
+          <!-- PrimaryCommandSurface is the main Office Ribbon. -->
+          <ExtensionPoint xsi:type="PrimaryCommandSurface">
+            <!-- Use OfficeTab to extend an existing Tab. Use CustomTab to create a new tab. -->
+            <CustomTab id="EconIndicators">
+              <!-- Ensure you provide a unique id for the group. Recommendation for any IDs is to namespace using your company name. -->
+              <Group id="Insert.Group">
+                <!-- Label for your group. resid must point to a ShortString resource. -->
+                <Label resid="Insert.Group1Label" />
+                <!-- Icons. Required sizes 16,32,80, optional 20, 24, 40, 48, 64. Strongly recommended to provide all sizes for great UX. -->
+                <!-- Use PNG icons. All URLs on the resources section must use HTTPS. -->
+                <Icon>
+                  <bt:Image size="16" resid="Contoso.tpicon_16x16" />
+                  <bt:Image size="32" resid="Contoso.tpicon_32x32" />
+                  <bt:Image size="80" resid="Contoso.tpicon_80x80" />
+                </Icon>
+
+                <!-- Control. It can be of type "Button" or "Menu". -->
+                <Control xsi:type="Button" id="Insert.DataButton">
+                  <Label resid="Insert.DataButton.Label" />
+                  <Supertip>
+                    <!-- ToolTip title. resid must point to a ShortString resource. -->
+                    <Title resid="Insert.DataButton.Label" />
+                    <!-- ToolTip description. resid must point to a LongString resource. -->
+                    <Description resid="Insert.DataButton.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Contoso.tpicon_16x16" />
+                    <bt:Image size="32" resid="Contoso.tpicon_32x32" />
+                    <bt:Image size="80" resid="Contoso.tpicon_80x80" />
+                  </Icon>
+
+                  <!-- This is what happens when the command is triggered (E.g. click on the Ribbon). Supported actions are ExecuteFunction or ShowTaskpane. -->
+                  <Action xsi:type="ShowTaskpane">
+                    <TaskpaneId>ButtonId1</TaskpaneId>
+                    <!-- Provide a URL resource id for the location that will be displayed on the task pane. -->
+                    <SourceLocation resid="Contoso.Taskpane.Url" />
+                  </Action>
+                </Control>
+              </Group>
+
+              <!-- Currency Group -->
+              <Group id="Currency.Group">
+                <Label resid="Currency.Group1Label" />
+                <Icon>
+                  <bt:Image size="16" resid="Contoso.tpicon_16x16" />
+                  <bt:Image size="32" resid="Contoso.tpicon_32x32" />
+                  <bt:Image size="80" resid="Contoso.tpicon_80x80" />
+                </Icon>
+                <!-- Convert to EUR -->
+                <Control xsi:type="Button" id="Currency.EurButton">
+                  <Label resid="Currency.EurButton.Label" />
+                  <Supertip>
+                    <Title resid="Currency.EurButton.Label" />
+                    <Description resid="Currency.EurButton.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="EUR.tpicon_16x16" />
+                    <bt:Image size="32" resid="EUR.tpicon_32x32" />
+                    <bt:Image size="80" resid="EUR.tpicon_80x80" />
+                  </Icon>
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>convertToEur</FunctionName>
+                  </Action>
+                </Control>
+                <!-- Convert to GBP -->
+                <Control xsi:type="Button" id="Currency.GbpButton">
+                  <Label resid="Currency.GbpButton.Label" />
+                  <Supertip>
+                    <Title resid="Currency.GbpButton.Label" />
+                    <Description resid="Currency.GbpButton.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="GBP.tpicon_16x16" />
+                    <bt:Image size="32" resid="GBP.tpicon_32x32" />
+                    <bt:Image size="80" resid="GBP.tpicon_80x80" />
+                  </Icon>
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>convertToGbp</FunctionName>
+                  </Action>
+                </Control>
+                <!-- Convert to CNY -->
+                <Control xsi:type="Button" id="Currency.CnyButton">
+                  <Label resid="Currency.CnyButton.Label" />
+                  <Supertip>
+                    <Title resid="Currency.CnyButton.Label" />
+                    <Description resid="Currency.CnyButton.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="CNY.tpicon_16x16" />
+                    <bt:Image size="32" resid="CNY.tpicon_32x32" />
+                    <bt:Image size="80" resid="CNY.tpicon_80x80" />
+                  </Icon>
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>convertToCny</FunctionName>
+                  </Action>
+                </Control>
+              </Group>
+
+              <!-- Functions Group -->
+              <Group id="Functions.Group">
+                <Label resid="Functions.Group1Label" />
+                <Icon>
+                  <bt:Image size="16" resid="Contoso.tpicon_16x16" />
+                  <bt:Image size="32" resid="Contoso.tpicon_32x32" />
+                  <bt:Image size="80" resid="Contoso.tpicon_80x80" />
+                </Icon>
+                <!-- LN function -->
+                <Control xsi:type="Button" id="Functions.LnButton">
+                  <Label resid="Functions.LnButton.Label" />
+                  <Supertip>
+                    <Title resid="Functions.LnButton.Label" />
+                    <Description resid="Functions.LnButton.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="LN.tpicon_16x16" />
+                    <bt:Image size="32" resid="LN.tpicon_32x32" />
+                    <bt:Image size="80" resid="LN.tpicon_80x80" />
+                  </Icon>
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>lnCalculate</FunctionName>
+                  </Action>
+                </Control>
+                <!-- Log10 function -->
+                <Control xsi:type="Button" id="Functions.Log10Button">
+                  <Label resid="Functions.Log10Button.Label" />
+                  <Supertip>
+                    <Title resid="Functions.Log10Button.Label" />
+                    <Description resid="Functions.Log10Button.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Log10.tpicon_16x16" />
+                    <bt:Image size="32" resid="Log10.tpicon_32x32" />
+                    <bt:Image size="80" resid="Log10.tpicon_80x80" />
+                  </Icon>
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>log10Calculate</FunctionName>
+                  </Action>
+                </Control>
+                <!-- Sqrt function -->
+                <Control xsi:type="Button" id="Functions.SqrtButton">
+                  <Label resid="Functions.SqrtButton.Label" />
+                  <Supertip>
+                    <Title resid="Functions.SqrtButton.Label" />
+                    <Description resid="Functions.SqrtButton.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Sqrt.tpicon_16x16" />
+                    <bt:Image size="32" resid="Sqrt.tpicon_32x32" />
+                    <bt:Image size="80" resid="Sqrt.tpicon_80x80" />
+                  </Icon>
+                  <Action xsi:type="ExecuteFunction">
+                    <FunctionName>sqrtCalculate</FunctionName>
+                  </Action>
+                </Control>
+              </Group>
+              <Label resid="EconIndicators.Label"/>
+            </CustomTab>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+
+    <!-- You can use resources across hosts and form factors. -->
+    <Resources>
+      <bt:Images>
+        <bt:Image id="Contoso.tpicon_16x16" DefaultValue="~remoteAppUrl/Images/Button16x16.png" />
+        <bt:Image id="Contoso.tpicon_32x32" DefaultValue="~remoteAppUrl/Images/Button32x32.png" />
+        <bt:Image id="Contoso.tpicon_80x80" DefaultValue="~remoteAppUrl/Images/Button80x80.png" />
+        <bt:Image id="EUR.tpicon_16x16" DefaultValue="~remoteAppUrl/Images/eur16x16.png" />
+        <bt:Image id="EUR.tpicon_32x32" DefaultValue="~remoteAppUrl/Images/eur32x32.png" />
+        <bt:Image id="EUR.tpicon_80x80" DefaultValue="~remoteAppUrl/Images/eur80x80.png" />
+        <bt:Image id="CNY.tpicon_16x16" DefaultValue="~remoteAppUrl/Images/cny16x16.png" />
+        <bt:Image id="CNY.tpicon_32x32" DefaultValue="~remoteAppUrl/Images/cny32x32.png" />
+        <bt:Image id="CNY.tpicon_80x80" DefaultValue="~remoteAppUrl/Images/cny80x80.png" />
+        <bt:Image id="GBP.tpicon_16x16" DefaultValue="~remoteAppUrl/Images/gbp16x16.png" />
+        <bt:Image id="GBP.tpicon_32x32" DefaultValue="~remoteAppUrl/Images/gbp32x32.png" />
+        <bt:Image id="GBP.tpicon_80x80" DefaultValue="~remoteAppUrl/Images/gbp80x80.png" />
+        <bt:Image id="LN.tpicon_16x16" DefaultValue="~remoteAppUrl/Images/calc16x16.png" />
+        <bt:Image id="LN.tpicon_32x32" DefaultValue="~remoteAppUrl/Images/calc32x32.png" />
+        <bt:Image id="LN.tpicon_80x80" DefaultValue="~remoteAppUrl/Images/calc80x80.png" />
+        <bt:Image id="Log10.tpicon_16x16" DefaultValue="~remoteAppUrl/Images/calc16x16.png" />
+        <bt:Image id="Log10.tpicon_32x32" DefaultValue="~remoteAppUrl/Images/calc32x32.png" />
+        <bt:Image id="Log10.tpicon_80x80" DefaultValue="~remoteAppUrl/Images/calc80x80.png" />
+        <bt:Image id="Sqrt.tpicon_16x16" DefaultValue="~remoteAppUrl/Images/sqrt16x16.png" />
+        <bt:Image id="Sqrt.tpicon_32x32" DefaultValue="~remoteAppUrl/Images/sqrt32x32.png" />
+        <bt:Image id="Sqrt.tpicon_80x80" DefaultValue="~remoteAppUrl/Images/sqrt80x80.png" />
+      </bt:Images>
+      <bt:Urls>
+        <bt:Url id="Contoso.DesktopFunctionFile.Url" DefaultValue="~remoteAppUrl/Functions/FunctionFile.html" />
+        <bt:Url id="Contoso.Taskpane.Url" DefaultValue="~remoteAppUrl/Home.html" />
+        <bt:Url id="EconInd.GetStarted.LearnMoreUrl" DefaultValue="https://go.microsoft.com/fwlink/?LinkId=276812" />
+      </bt:Urls>
+      <!-- ShortStrings max characters==125. -->
+      <bt:ShortStrings>
+        <bt:String id="Insert.DataButton.Label" DefaultValue="Insert Data" />
+        <bt:String id="Insert.Group1Label" DefaultValue="Insert Group" />
+        <bt:String id="EconInd.GetStarted.Title" DefaultValue="Get started with the Economic Indicators add-in!" />
+        <bt:String id="EconIndicators.Label" DefaultValue="Economic Indicators" />
+        <bt:String id="Currency.Group1Label" DefaultValue="Currency Conversion Group" />
+        <bt:String id="Currency.EurButton.Label" DefaultValue="EUR" />
+        <bt:String id="Currency.GbpButton.Label" DefaultValue="GBP" />
+        <bt:String id="Currency.CnyButton.Label" DefaultValue="CNY" />
+        <bt:String id="Functions.Group1Label" DefaultValue="Functions Group" />
+        <bt:String id="Functions.LnButton.Label" DefaultValue="Ln(x)" />
+        <bt:String id="Functions.Log10Button.Label" DefaultValue="Log10(x)" />
+        <bt:String id="Functions.SqrtButton.Label" DefaultValue="Sqrt(x)" />
+      </bt:ShortStrings>
+      <!-- LongStrings max characters==250. -->
+      <bt:LongStrings>
+        <bt:String id="Insert.DataButton.Tooltip" DefaultValue="Click to Show an Indicator" />
+        <bt:String id="Currency.EurButton.Tooltip" DefaultValue="Click to Add EUR Conversion to the Selected Indicator" />
+        <bt:String id="Currency.GbpButton.Tooltip" DefaultValue="Click to Add GBP Conversion to the Selected Indicator" />
+        <bt:String id="Currency.CnyButton.Tooltip" DefaultValue="Click to Add CNY Conversion to the Selected Indicator" />
+        <bt:String id="Functions.LnButton.Tooltip" DefaultValue="Click to Add Natural Log Calculation to the Selected Indicator" />
+        <bt:String id="Functions.Log10Button.Tooltip" DefaultValue="Click to Add Base 10 Log Calculation to the Selected Indicator" />
+        <bt:String id="Functions.SqrtButton.Tooltip" DefaultValue="Click to Add Square Root Calculation to the Selected Indicator" />
+        <bt:String id="EconInd.GetStarted.Description" DefaultValue="Your add-in loaded succesfully. Go to the Economic Indicators tab to get started." />
+      </bt:LongStrings>
+    </Resources>
+  </VersionOverrides>
+  <!-- End Add-in Commands Mode integration. -->
+
+</OfficeApp>

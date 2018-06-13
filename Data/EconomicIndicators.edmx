@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="EconindicatorsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Indicator">
+          <Key>
+            <PropertyRef Name="IndicatorId" />
+          </Key>
+          <Property Name="IndicatorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IndicatorValue">
+          <Key>
+            <PropertyRef Name="IndicatorId" />
+            <PropertyRef Name="TimePointId" />
+          </Key>
+          <Property Name="IndicatorId" Type="int" Nullable="false" />
+          <Property Name="TimePointId" Type="int" Nullable="false" />
+          <Property Name="Value" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TimePoint">
+          <Key>
+            <PropertyRef Name="TimePointId" />
+          </Key>
+          <Property Name="TimePointId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Year" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_IndicatorValue_Indicator">
+          <End Role="Indicator" Type="Self.Indicator" Multiplicity="1" />
+          <End Role="IndicatorValue" Type="Self.IndicatorValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Indicator">
+              <PropertyRef Name="IndicatorId" />
+            </Principal>
+            <Dependent Role="IndicatorValue">
+              <PropertyRef Name="IndicatorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IndicatorValue_TimePoint">
+          <End Role="TimePoint" Type="Self.TimePoint" Multiplicity="1" />
+          <End Role="IndicatorValue" Type="Self.IndicatorValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TimePoint">
+              <PropertyRef Name="TimePointId" />
+            </Principal>
+            <Dependent Role="IndicatorValue">
+              <PropertyRef Name="TimePointId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EconindicatorsModelStoreContainer">
+          <EntitySet Name="Indicator" EntityType="Self.Indicator" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IndicatorValue" EntityType="Self.IndicatorValue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TimePoint" EntityType="Self.TimePoint" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_IndicatorValue_Indicator" Association="Self.FK_IndicatorValue_Indicator">
+            <End Role="Indicator" EntitySet="Indicator" />
+            <End Role="IndicatorValue" EntitySet="IndicatorValue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndicatorValue_TimePoint" Association="Self.FK_IndicatorValue_TimePoint">
+            <End Role="TimePoint" EntitySet="TimePoint" />
+            <End Role="IndicatorValue" EntitySet="IndicatorValue" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EconindicatorsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Indicator">
+          <Key>
+            <PropertyRef Name="IndicatorId" />
+          </Key>
+          <Property Name="IndicatorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="IndicatorValues" Relationship="Self.FK_IndicatorValue_Indicator" FromRole="Indicator" ToRole="IndicatorValue" />
+        </EntityType>
+        <EntityType Name="IndicatorValue">
+          <Key>
+            <PropertyRef Name="IndicatorId" />
+            <PropertyRef Name="TimePointId" />
+          </Key>
+          <Property Name="IndicatorId" Type="Int32" Nullable="false" />
+          <Property Name="TimePointId" Type="Int32" Nullable="false" />
+          <Property Name="Value" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="Indicator" Relationship="Self.FK_IndicatorValue_Indicator" FromRole="IndicatorValue" ToRole="Indicator" />
+          <NavigationProperty Name="TimePoint" Relationship="Self.FK_IndicatorValue_TimePoint" FromRole="IndicatorValue" ToRole="TimePoint" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TimePoint">
+          <Key>
+            <PropertyRef Name="TimePointId" />
+          </Key>
+          <Property Name="TimePointId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Year" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="IndicatorValues" Relationship="Self.FK_IndicatorValue_TimePoint" FromRole="TimePoint" ToRole="IndicatorValue" />
+        </EntityType>
+        <Association Name="FK_IndicatorValue_Indicator">
+          <End Role="Indicator" Type="Self.Indicator" Multiplicity="1" />
+          <End Role="IndicatorValue" Type="Self.IndicatorValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Indicator">
+              <PropertyRef Name="IndicatorId" />
+            </Principal>
+            <Dependent Role="IndicatorValue">
+              <PropertyRef Name="IndicatorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IndicatorValue_TimePoint">
+          <End Role="TimePoint" Type="Self.TimePoint" Multiplicity="1" />
+          <End Role="IndicatorValue" Type="Self.IndicatorValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TimePoint">
+              <PropertyRef Name="TimePointId" />
+            </Principal>
+            <Dependent Role="IndicatorValue">
+              <PropertyRef Name="TimePointId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EconindicatorsEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Indicators" EntityType="Self.Indicator" />
+          <EntitySet Name="IndicatorValues" EntityType="Self.IndicatorValue" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="TimePoints" EntityType="Self.TimePoint" />
+          <AssociationSet Name="FK_IndicatorValue_Indicator" Association="Self.FK_IndicatorValue_Indicator">
+            <End Role="Indicator" EntitySet="Indicators" />
+            <End Role="IndicatorValue" EntitySet="IndicatorValues" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IndicatorValue_TimePoint" Association="Self.FK_IndicatorValue_TimePoint">
+            <End Role="TimePoint" EntitySet="TimePoints" />
+            <End Role="IndicatorValue" EntitySet="IndicatorValues" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EconindicatorsModelStoreContainer" CdmEntityContainer="EconindicatorsEntities">
+          <EntitySetMapping Name="Indicators">
+            <EntityTypeMapping TypeName="EconindicatorsModel.Indicator">
+              <MappingFragment StoreEntitySet="Indicator">
+                <ScalarProperty Name="IndicatorId" ColumnName="IndicatorId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IndicatorValues">
+            <EntityTypeMapping TypeName="EconindicatorsModel.IndicatorValue">
+              <MappingFragment StoreEntitySet="IndicatorValue">
+                <ScalarProperty Name="IndicatorId" ColumnName="IndicatorId" />
+                <ScalarProperty Name="TimePointId" ColumnName="TimePointId" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="EconindicatorsModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TimePoints">
+            <EntityTypeMapping TypeName="EconindicatorsModel.TimePoint">
+              <MappingFragment StoreEntitySet="TimePoint">
+                <ScalarProperty Name="TimePointId" ColumnName="TimePointId" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

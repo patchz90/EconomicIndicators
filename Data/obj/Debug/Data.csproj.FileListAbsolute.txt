@@ -1,0 +1,11 @@
+C:\Users\Plamen\source\repos\ExcelEconomicIndicatorsWebAddIn\Data\bin\Debug\Data.dll.config
+C:\Users\Plamen\source\repos\ExcelEconomicIndicatorsWebAddIn\Data\bin\Debug\Data.dll
+C:\Users\Plamen\source\repos\ExcelEconomicIndicatorsWebAddIn\Data\bin\Debug\Data.pdb
+C:\Users\Plamen\source\repos\ExcelEconomicIndicatorsWebAddIn\Data\bin\Debug\EntityFramework.dll
+C:\Users\Plamen\source\repos\ExcelEconomicIndicatorsWebAddIn\Data\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Plamen\source\repos\ExcelEconomicIndicatorsWebAddIn\Data\bin\Debug\EntityFramework.xml
+C:\Users\Plamen\source\repos\ExcelEconomicIndicatorsWebAddIn\Data\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Plamen\source\repos\ExcelEconomicIndicatorsWebAddIn\Data\obj\Debug\Data.csprojResolveAssemblyReference.cache
+C:\Users\Plamen\source\repos\ExcelEconomicIndicatorsWebAddIn\Data\obj\Debug\Data.csproj.CoreCompileInputs.cache
+C:\Users\Plamen\source\repos\ExcelEconomicIndicatorsWebAddIn\Data\obj\Debug\Data.dll
+C:\Users\Plamen\source\repos\ExcelEconomicIndicatorsWebAddIn\Data\obj\Debug\Data.pdb

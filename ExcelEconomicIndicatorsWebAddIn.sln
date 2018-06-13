@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2010
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelEconomicIndicatorsWebAddIn", "ExcelEconomicIndicatorsWebAddIn\ExcelEconomicIndicatorsWebAddIn.csproj", "{3CF83436-5C4C-45AE-B7A7-9D1D591AB555}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelEconomicIndicatorsWebAddInWeb", "ExcelEconomicIndicatorsWebAddInWeb\ExcelEconomicIndicatorsWebAddInWeb.csproj", "{7CEF0610-3125-4C56-A326-0BDBF103C4F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{48AE0BA8-62F0-45A8-A76E-8C0A3C78A12E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3CF83436-5C4C-45AE-B7A7-9D1D591AB555}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CF83436-5C4C-45AE-B7A7-9D1D591AB555}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CF83436-5C4C-45AE-B7A7-9D1D591AB555}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{3CF83436-5C4C-45AE-B7A7-9D1D591AB555}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CF83436-5C4C-45AE-B7A7-9D1D591AB555}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CF83436-5C4C-45AE-B7A7-9D1D591AB555}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{7CEF0610-3125-4C56-A326-0BDBF103C4F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CEF0610-3125-4C56-A326-0BDBF103C4F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CEF0610-3125-4C56-A326-0BDBF103C4F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CEF0610-3125-4C56-A326-0BDBF103C4F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48AE0BA8-62F0-45A8-A76E-8C0A3C78A12E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48AE0BA8-62F0-45A8-A76E-8C0A3C78A12E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48AE0BA8-62F0-45A8-A76E-8C0A3C78A12E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48AE0BA8-62F0-45A8-A76E-8C0A3C78A12E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FBFC0A13-2D42-4A38-86A1-D331DBFC4481}
+	EndGlobalSection
+EndGlobal
